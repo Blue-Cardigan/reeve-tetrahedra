@@ -108,7 +108,7 @@ export function checkPointLocation(p: THREE.Vector3, vA: THREE.Vector3, vB: THRE
   // Let's refine: Check edges and vertices explicitly if onAnyFacePlane is true but not inside any face triangle.
 
     const edges = [
-        [vA, vB], [vA, vC], [vB, C], [vA, vD], [vB, D], [vC, D]
+        [vA, vB], [vA, vC], [vB, vC], [vA, vD], [vB, vD], [vC, vD]
     ];
     for(const edge of edges) {
         if (isPointOnSegment(p, edge[0], edge[1])) return 'Boundary';
