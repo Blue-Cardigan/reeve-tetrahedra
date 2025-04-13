@@ -27,7 +27,7 @@ export default function Home() {
             In geometry, the Reeve tetrahedra are a family of polyhedra with vertices at
             <TeX math="(0, 0, 0), (1, 0, 0), (0, 1, 0), (1, 1, r)" />, where <TeX math="r" /> is a positive integer.
             They are named after John Reeve, who in 1957 used them to show that higher-dimensional
-            generalizations of Pick's theorem do not exist. Despite this negative result, Reeve developed
+            generalizations of Pick&apos;s theorem do not exist. Despite this negative result, Reeve developed
             an alternative formula for calculating the volume of lattice polyhedra in three dimensions
             that involves counting lattice points from finer lattices and incorporating the Euler
             characteristic of the polyhedron.
@@ -70,7 +70,7 @@ export default function Home() {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Counterexample to Generalizations of Pick's Theorem</h2>
+          <h2 className="text-2xl font-semibold mb-4">Counterexample to Generalizations of Pick&apos;s Theorem</h2>
           <p className="mb-4">
             All vertices of a Reeve tetrahedron are lattice points (points whose coordinates are all integers).
             Crucially, for any positive integer <TeX math="r" />, no other lattice points lie on the surface or
@@ -79,12 +79,12 @@ export default function Home() {
             The volume of this tetrahedron is <TeX math="V(T_r) = \frac{r}{6}" />.
           </p>
           <p className="mb-4">
-            In two dimensions, Pick's theorem provides a simple formula for the area of a polygon based on the
+            In two dimensions, Pick&apos;s theorem provides a simple formula for the area of a polygon based on the
             number of lattice points on its boundary and in its interior. It states that <TeX math="A = I + \frac{B}{2} - 1" />, where
             <TeX math="I" /> is the number of interior lattice points and <TeX math="B" /> is the number of lattice points on the boundary.
           </p>
           <p className="mb-4">
-            The Reeve tetrahedra demonstrate that a direct equivalent of Pick's theorem doesn't exist in three dimensions.
+            The Reeve tetrahedra demonstrate that a direct equivalent of Pick&apos;s theorem doesn&apos;t exist in three dimensions.
             All Reeve tetrahedra <TeX math="T_r" /> have exactly 4 lattice points (the vertices) and no other interior or boundary lattice points.
             If a Pick-like formula existed for volume based solely on these counts, all <TeX math="T_r" /> would have the same calculated volume.
             However, their actual volumes (<TeX math="r/6" />) are different for each <TeX math="r" /> and can be arbitrarily large.
@@ -93,10 +93,10 @@ export default function Home() {
         </section>
 
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold mb-4">Reeve's Formula for Lattice Polyhedra</h2>
+          <h2 className="text-2xl font-semibold mb-4">Reeve&apos;s Formula for Lattice Polyhedra</h2>
           <p className="mb-4">
-            Despite the negative result regarding a direct generalization of Pick's theorem, Reeve developed a more sophisticated formula for the volume of three-dimensional lattice polyhedra.
-            His approach involved introducing additional "rational lattices" defined as:
+            Despite the negative result regarding a direct generalization of Pick&apos;s theorem, Reeve developed a more sophisticated formula for the volume of three-dimensional lattice polyhedra.
+            His approach involved introducing additional &quot;rational lattices&quot; defined as:
           </p>
           <div className="my-4 p-4 bg-gray-100 dark:bg-gray-800 rounded">
              <TeX block math="Z_{n} = \{ x \in \mathbb{R}^3 : nx \in \mathbb{Z}^3 \}, n \geq 1" />
@@ -107,7 +107,7 @@ export default function Home() {
           </p>
           <p className="mb-4">
              For a lattice polyhedron <TeX math="P" /> in <TeX math="\mathbb{R}^3" />, let <TeX math="I_n" /> and <TeX math="B_n" /> denote the number of points from the lattice <TeX math="Z_n" /> in the interior and on the boundary of <TeX math="P" />, respectively.
-             Reeve's formula for the volume is:
+             Reeve&apos;s formula for the volume is:
           </p>
           <div className="my-4 p-4 bg-gray-100 dark:bg-gray-800 rounded text-center">
              <TeX block math="12V(P) = 2I_{2} + B_{2} - 2(2I_{1} + B_{1}) + 2\chi(P) - \chi(\partial P)" />
@@ -116,17 +116,17 @@ export default function Home() {
              where <TeX math="\chi(P)" /> is the Euler characteristic of the polyhedron <TeX math="P" /> (for a simple polyhedron like a tetrahedron, <TeX math="\chi(P) = 1" />) and <TeX math="\chi(\partial P)" /> is the Euler characteristic of its boundary (for a simple polyhedron, the boundary is topologically a sphere, so <TeX math="\chi(\partial P) = 2" />).
           </p>
            <p className="mb-4">
-            The Euler characteristic <TeX math="\chi" /> of a shape is a topological invariant, often defined as <TeX math="V - E + F" /> (Vertices - Edges + Faces) for polyhedra. For any convex polyhedron, <TeX math="\chi(P) = 1" />. The boundary <TeX math="\partial P" /> of a simple 3D polyhedron is topologically equivalent to a sphere, for which <TeX math="\chi(\partial P) = 2" />.
+            The Euler characteristic <TeX math="\\chi" /> of a shape is a topological invariant, often defined as <TeX math="V - E + F" /> (Vertices - Edges + Faces) for polyhedra. For any convex polyhedron, <TeX math="\\chi(P) = 1" />. The boundary <TeX math="\\partial P" /> of a simple 3D polyhedron is topologically equivalent to a sphere, for which <TeX math="\\chi(\\partial P) = 2" />.
            </p>
            <p className="mb-4">
-            For lattice polyhedra that are 3-dimensional manifolds (meaning they are "solid" without holes running through them, like the Reeve tetrahedra), the Euler characteristics are constant (<TeX math="\chi(P)=1, \chi(\partial P)=2" />), and the formula simplifies to:
+            For lattice polyhedra that are 3-dimensional manifolds (meaning they are &quot;solid&quot; without holes running through them, like the Reeve tetrahedra), the Euler characteristics are constant (<TeX math="\\chi(P)=1, \\chi(\\partial P)=2" />), and the formula simplifies to:
            </p>
           <div className="my-4 p-4 bg-gray-100 dark:bg-gray-800 rounded text-center">
              <TeX block math="12V(P) = 2I_{2} + B_{2} - 2(2I_{1} + B_{1})" />
           </div>
           <p>
              This formula shows that volume can be determined by counting lattice points, but it requires considering points from a finer lattice (<TeX math="Z_2" />) in addition to the standard integer lattice (<TeX math="Z_1 = \mathbb{Z}^3" />).
-             The visualization below shows the <TeX math="Z_1" /> (blue) and <TeX math="Z_2" /> (green, excluding Z1) points inside or on the boundary of the tetrahedron for the selected <TeX math="r" />. Compare the volume calculated using Reeve's formula with the actual volume <TeX math="r/6" />.
+             The visualization below shows the <TeX math="Z_1" /> (blue) and <TeX math="Z_2" /> (green, excluding Z1) points inside or on the boundary of the tetrahedron for the selected <TeX math="r" />. Compare the volume calculated using Reeve&apos;s formula with the actual volume <TeX math="r/6" />.
           </p>
           <div className="w-full h-[550px] bg-gray-200 dark:bg-gray-700 rounded my-4 relative">
              <Suspense fallback={<div>Loading...</div>}>
@@ -187,12 +187,12 @@ export default function Home() {
               <a href="https://doi.org/10.1007/978-1-4939-2969-6" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">DOI: 10.1007/978-1-4939-2969-6</a> (See pp. 78–79, 82 for Ehrhart polynomials and Reeve tetrahedra).
             </li>
             <li>
-              Kiradjiev, K. (December 2018). Connecting the Dots with Pick's Theorem. *Mathematics Today*. Institute of Mathematics and its Applications.
-              (Provides background on Pick's Theorem).
+              Kiradjiev, K. (December 2018). Connecting the Dots with Pick&apos;s Theorem. *Mathematics Today*. Institute of Mathematics and its Applications.
+              (Provides background on Pick&apos;s Theorem).
             </li>
              <li>
-              Kołodziejczyk, K. (1996). An "odd" formula for the volume of three-dimensional lattice polyhedra. *Geometriae Dedicata*, 61(3), 271–278.
-              <a href="https://doi.org/10.1007/BF00150027" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">DOI: 10.1007/BF00150027</a> (Discusses volume formulas related to Reeve's work).
+              Kołodziejczyk, K. (1996). An &quot;odd&quot; formula for the volume of three-dimensional lattice polyhedra. *Geometriae Dedicata*, 61(3), 271–278.
+              <a href="https://doi.org/10.1007/BF00150027" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">DOI: 10.1007/BF00150027</a> (Discusses volume formulas related to Reeve&apos;s work).
             </li>
             <li>
               Reeve, J. E. (1957). On the volume of lattice polyhedra. *Proceedings of the London Mathematical Society*, Third Series, 7, 378–395.

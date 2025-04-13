@@ -12,7 +12,7 @@ interface ReeveTetrahedronVizProps {
 
 const ReeveTetrahedronViz: React.FC<ReeveTetrahedronVizProps> = ({ r }) => {
 
-  const { vertices, edges, geometry, latticePoints } = useMemo(() => {
+  const { edges, geometry, latticePoints } = useMemo(() => {
     const v = [
       new THREE.Vector3(0, 0, 0), // A (Origin)
       new THREE.Vector3(1, 0, 0), // B

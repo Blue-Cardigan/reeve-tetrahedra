@@ -2,12 +2,9 @@
 
 import React, { useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Sphere, Text } from '@react-three/drei';
+import { OrbitControls, Line, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import { checkPointLocation } from '@/lib/geometryUtils'; // Use shared helper
-
-// Remove local helper functions (now in geometryUtils.ts)
-// ... isPointOnSegment, isPointInTriangle, local checkPointLocation ...
 
 interface PointData {
   position: THREE.Vector3;
@@ -20,7 +17,7 @@ interface ReeveFormulaVizProps {
 }
 
 const ReeveFormulaViz: React.FC<ReeveFormulaVizProps> = ({ r }) => {
-  const { vertices, edges, geometry, latticePoints, counts } = useMemo(() => {
+  const { edges, geometry, latticePoints, counts } = useMemo(() => {
     const v = [
       new THREE.Vector3(0, 0, 0), // A
       new THREE.Vector3(1, 0, 0), // B

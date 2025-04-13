@@ -6,39 +6,6 @@ import { OrbitControls, Line, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import TeX from '@matejmazur/react-katex';
 import { checkPointLocation } from '@/lib/geometryUtils'; // Use shared helper
-
-// Epsilon for floating point comparisons
-const EPSILON = 1e-9;
-
-// // Re-use the point location check from ReeveFormulaViz (or move to a shared utils file)
-// function checkPointLocation(p: THREE.Vector3, vA: THREE.Vector3, vB: THREE.Vector3, vC: THREE.Vector3, vD: THREE.Vector3): 'Interior' | 'Boundary' | 'Outside' {
-//     const faces = [
-//       { normal: new THREE.Plane().setFromCoplanarPoints(vA, vB, vC).normal, origin: vA }, // ABC
-//       { normal: new THREE.Plane().setFromCoplanarPoints(vA, vB, vD).normal, origin: vA }, // ABD
-//       { normal: new THREE.Plane().setFromCoplanarPoints(vA, vC, vD).normal, origin: vA }, // ACD
-//       { normal: new THREE.Plane().setFromCoplanarPoints(vB, vC, vD).normal, origin: vB }  // BCD
-//     ];
-
-//     const centroid = new THREE.Vector3().add(vA).add(vB).add(vC).add(vD).multiplyScalar(0.25);
-//     let onBoundary = false;
-
-//     for (const face of faces) {
-//       const vecToCentroid = new THREE.Vector3().subVectors(centroid, face.origin);
-//       if (face.normal.dot(vecToCentroid) < -EPSILON) face.normal.negate();
-
-//       const vecToPoint = new THREE.Vector3().subVectors(p, face.origin);
-//       const dist = face.normal.dot(vecToPoint);
-
-//       if (Math.abs(dist) < EPSILON) {
-//         onBoundary = true;
-//         // Simplified boundary check for this viz: just check if on *any* face plane
-//       } else if (dist < -EPSILON) {
-//           return 'Outside';
-//       }
-//     }
-//     return onBoundary ? 'Boundary' : 'Interior';
-// }
-
 interface EhrhartPolynomialVizProps {
   r: number;
 }
@@ -46,7 +13,7 @@ interface EhrhartPolynomialVizProps {
 const EhrhartPolynomialViz: React.FC<EhrhartPolynomialVizProps> = ({ r }) => {
   const [tValue, setTValue] = useState<number>(1);
 
-  const { vertices, edges, geometry, latticePoints, pointCount } = useMemo(() => {
+  const { edges, geometry, latticePoints, pointCount } = useMemo(() => {
     const scale = tValue;
     const v = [
       new THREE.Vector3(0, 0, 0),
