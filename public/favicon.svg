@@ -1,0 +1,42 @@
+<svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgb(255,80,0);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(255,160,0);stop-opacity:1" />
+    </linearGradient>
+     <linearGradient id="grad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(0,80,255);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(0,160,255);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Dragon-like elements (Orange/Red Gradient) -->
+  <g stroke="url(#grad1)" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Wings -->
+    <polyline points="10,70 0,50 15,60" />
+    <polyline points="90,70 100,50 85,60" />
+    <!-- Tail/Spike -->
+    <line x1="50" y1="90" x2="50" y2="100" />
+    <polyline points="45,98 50,100 55,98"/>
+     <!-- Top Spike -->
+    <polyline points="45,52 50,42 55,52"/>
+  </g>
+
+  <!-- Tetrahedron Wireframe (Blue Gradient) -->
+  <g stroke="url(#grad2)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="50" y1="90" x2="10" y2="70" /> <!-- Origin to X=1 -->
+    <line x1="50" y1="90" x2="90" y2="70" /> <!-- Origin to Y=1 -->
+    <line x1="10" y1="70" x2="50" y2="50" /> <!-- X=1 to Top -->
+    <line x1="90" y1="70" x2="50" y2="50" /> <!-- Y=1 to Top -->
+    <line x1="10" y1="70" x2="90" y2="70" stroke-dasharray="3,3" opacity="0.7"/> <!-- Base connector -->
+    <line x1="50" y1="90" x2="50" y2="50" /> <!-- Origin to Top -->
+  </g>
+
+   <!-- Vertex Dots (matching tetrahedron color) -->
+   <g fill="url(#grad2)" stroke="none">
+      <circle cx="50" cy="90" r="4"/> <!-- Origin -->
+      <circle cx="10" cy="70" r="4"/>
+      <circle cx="90" cy="70" r="4"/>
+      <circle cx="50" cy="50" r="4"/> <!-- Top Vertex -->
+  </g>
+</svg> 
