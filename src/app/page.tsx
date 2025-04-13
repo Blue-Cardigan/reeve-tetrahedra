@@ -179,6 +179,28 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="mt-16 pt-8 border-t border-gray-300 dark:border-gray-600">
+          <h2 className="text-2xl font-semibold mb-4">References</h2>
+          <ul className="list-disc list-inside space-y-2 text-xs">
+            <li>
+              Beck, M., & Robins, S. (2015). *Computing the Continuous Discretely: Integer-Point Enumeration in Polyhedra* (Second ed.). Undergraduate Texts in Mathematics. Springer.
+              <a href="https://doi.org/10.1007/978-1-4939-2969-6" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">DOI: 10.1007/978-1-4939-2969-6</a> (See pp. 78–79, 82 for Ehrhart polynomials and Reeve tetrahedra).
+            </li>
+            <li>
+              Kiradjiev, K. (December 2018). Connecting the Dots with Pick's Theorem. *Mathematics Today*. Institute of Mathematics and its Applications.
+              (Provides background on Pick's Theorem).
+            </li>
+             <li>
+              Kołodziejczyk, K. (1996). An "odd" formula for the volume of three-dimensional lattice polyhedra. *Geometriae Dedicata*, 61(3), 271–278.
+              <a href="https://doi.org/10.1007/BF00150027" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">DOI: 10.1007/BF00150027</a> (Discusses volume formulas related to Reeve's work).
+            </li>
+            <li>
+              Reeve, J. E. (1957). On the volume of lattice polyhedra. *Proceedings of the London Mathematical Society*, Third Series, 7, 378–395.
+              <a href="https://doi.org/10.1112/plms/s3-7.1.378" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">DOI: 10.1112/plms/s3-7.1.378</a> (The original paper introducing Reeve tetrahedra and the volume formula).
+            </li>
+          </ul>
+        </section>
+
       </div>
     </main>
   );
