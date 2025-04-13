@@ -116,10 +116,10 @@ export default function Home() {
              where <TeX math="\chi(P)" /> is the Euler characteristic of the polyhedron <TeX math="P" /> (for a simple polyhedron like a tetrahedron, <TeX math="\chi(P) = 1" />) and <TeX math="\chi(\partial P)" /> is the Euler characteristic of its boundary (for a simple polyhedron, the boundary is topologically a sphere, so <TeX math="\chi(\partial P) = 2" />).
           </p>
            <p className="mb-4">
-            The Euler characteristic <TeX math="\\chi" /> of a shape is a topological invariant, often defined as <TeX math="V - E + F" /> (Vertices - Edges + Faces) for polyhedra. For any convex polyhedron, <TeX math="\\chi(P) = 1" />. The boundary <TeX math="\\partial P" /> of a simple 3D polyhedron is topologically equivalent to a sphere, for which <TeX math="\\chi(\\partial P) = 2" />.
+            The Euler characteristic <TeX math="\chi" /> of a shape is a topological invariant, often defined as <TeX math="V - E + F" /> (Vertices - Edges + Faces) for polyhedra. For any convex polyhedron, <TeX math="\chi(P) = 1" />. The boundary <TeX math="\partial P" /> of a simple 3D polyhedron is topologically equivalent to a sphere, for which <TeX math="\chi(\partial P) = 2" />.
            </p>
            <p className="mb-4">
-            For lattice polyhedra that are 3-dimensional manifolds (meaning they are &quot;solid&quot; without holes running through them, like the Reeve tetrahedra), the Euler characteristics are constant (<TeX math="\\chi(P)=1, \\chi(\\partial P)=2" />), and the formula simplifies to:
+            For lattice polyhedra that are 3-dimensional manifolds (meaning they are &quot;solid&quot; without holes running through them, like the Reeve tetrahedra), the Euler characteristics are constant (<TeX math="\chi(P)=1, \chi(\partial P)=2" />), and the formula simplifies to:
            </p>
           <div className="my-4 p-4 bg-gray-100 dark:bg-gray-800 rounded text-center">
              <TeX block math="12V(P) = 2I_{2} + B_{2} - 2(2I_{1} + B_{1})" />
