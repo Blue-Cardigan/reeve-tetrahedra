@@ -26,6 +26,10 @@ export default function Home() {
         <ReferencesSection />
 
       </div>
+
+      <footer className="mt-16 text-center text-xs text-gray-500 dark:text-gray-400">
+        Interested in obscure nerdy stuff of pertinent interest to the current generation of the Reeve family? Check out: <a href="https://microtonal-tutor.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">https://microtonal-tutor.vercel.app/</a>
+      </footer>
     </main>
   );
 }
