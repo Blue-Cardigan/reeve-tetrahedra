@@ -3,11 +3,7 @@
 import TeX from '@matejmazur/react-katex';
 import React from 'react';
 
-interface ReevesFormulaSectionProps {
-    rValue: number;
-}
-
-export default function ReevesFormulaSection({ rValue }: ReevesFormulaSectionProps) {
+export default function ReevesFormulaSection() {
 
     return (
         <section className="mb-16 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">

@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Sphere, Html } from '@react-three/drei';
+import { OrbitControls, Line, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import TeX from '@matejmazur/react-katex';
 import { checkPointLocation } from '@/lib/geometryUtils'; // Use shared helper
@@ -58,16 +58,6 @@ const EhrhartPolynomialViz: React.FC<EhrhartPolynomialVizProps> = ({ r }) => {
     }
 
     return { vertices: v, edges: edgs, geometry: geom, latticePoints: points, pointCount: countInsideBoundary };
-  }, [r, tValue]);
-
-  // Calculate a suitable center point for the annotation
-  const centerPoint = useMemo(() => {
-      const scale = tValue;
-      const avgX = (0 + scale + 0 + scale) / 4;
-      const avgY = (0 + 0 + scale + scale) / 4;
-      const avgZ = (0 + 0 + 0 + scale * r) / 4;
-      // Position slightly above and behind the center of the scaled tetrahedron
-      return new THREE.Vector3(avgX - scale * 0.2, avgY - scale * 0.2, avgZ + Math.max(scale * 0.5, scale * r * 0.3));
   }, [r, tValue]);
 
   const ehrhartValue = useMemo(() => {

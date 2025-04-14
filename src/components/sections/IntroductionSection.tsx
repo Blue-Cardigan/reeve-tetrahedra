@@ -2,7 +2,6 @@
 
 import TeX from '@matejmazur/react-katex';
 import React, { Suspense } from 'react';
-import dynamic from 'next/dynamic';
 import ReeveTetrahedronViz from '@/components/ReeveTetrahedronViz';
 
 interface IntroductionSectionProps {

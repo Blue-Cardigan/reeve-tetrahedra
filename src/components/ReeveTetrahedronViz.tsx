@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Sphere, Html } from '@react-three/drei';
+import { OrbitControls, Line, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import { checkPointLocation } from '@/lib/geometryUtils'; // Import helper
 
@@ -51,14 +51,6 @@ const ReeveTetrahedronViz: React.FC<ReeveTetrahedronVizProps> = ({ r }) => {
 
     return { vertices: v, edges: edgs, geometry: geom, latticePoints: points };
 
-  }, [r]);
-
-  // Calculate a suitable center point for the annotation
-  const centerPoint = useMemo(() => {
-      const avgX = (0 + 1 + 0 + 1) / 4;
-      const avgY = (0 + 0 + 1 + 1) / 4;
-      const avgZ = (0 + 0 + 0 + r) / 4;
-      return new THREE.Vector3(avgX, avgY, avgZ + Math.max(1, r * 0.3)); // Position above the center
   }, [r]);
 
   return (

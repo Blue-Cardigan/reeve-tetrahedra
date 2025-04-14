@@ -1,5 +1,4 @@
 import React from 'react';
-import TeX from '@matejmazur/react-katex';
 
 export default function ReferencesSection() {
     return (

@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Sphere, Html } from '@react-three/drei';
+import { OrbitControls, Line, Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import TeX from '@matejmazur/react-katex';
 import { checkPointLocation } from '@/lib/geometryUtils'; // Assuming this helper exists and works
@@ -96,14 +96,6 @@ const ReeveFormulaViz: React.FC<ReeveFormulaVizProps> = ({ r }) => {
   }, [counts]);
 
   const actualVolume = r / 6;
-   // Calculate a suitable center point for the annotation
-   const centerPoint = useMemo(() => {
-        const avgX = (0 + 1 + 0 + 1) / 4;
-        const avgY = (0 + 0 + 1 + 1) / 4;
-        const avgZ = (0 + 0 + 0 + r) / 4;
-        return new THREE.Vector3(avgX - 0.5, avgY - 0.5, avgZ + Math.max(1.5, r * 0.4));
-    }, [r]);
-
 
   return (
     <div className="h-[550px] w-full relative"> {/* Increased height */}

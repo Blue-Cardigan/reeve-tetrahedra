@@ -20,7 +20,7 @@ export default function Home() {
 
         <IntroductionSection rValue={rValue} setRValue={setRValue} />
         <PicksTheoremSection />
-        <ReevesFormulaSection rValue={rValue} />
+        <ReevesFormulaSection />
         <ReevesGeneralizationSection rValue={rValue} setRValue={setRValue} />
         <EhrhartPolynomialSection rValue={rValue} />
         <ReferencesSection />
