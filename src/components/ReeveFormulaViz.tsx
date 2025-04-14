@@ -2,13 +2,14 @@
 
 import React, { useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Sphere } from '@react-three/drei';
+import { OrbitControls, Line, Sphere, Html } from '@react-three/drei';
 import * as THREE from 'three';
-import { checkPointLocation } from '@/lib/geometryUtils'; // Use shared helper
+import TeX from '@matejmazur/react-katex';
+import { checkPointLocation } from '@/lib/geometryUtils'; // Assuming this helper exists and works
 
 interface PointData {
   position: THREE.Vector3;
-  type: 'Z1' | 'Z2'; // Z2 includes Z1
+  type: 'Z1' | 'Z2'; // Z2 for non-Z1 half-integer points
   location: 'Interior' | 'Boundary' | 'Outside';
 }
 
@@ -17,7 +18,7 @@ interface ReeveFormulaVizProps {
 }
 
 const ReeveFormulaViz: React.FC<ReeveFormulaVizProps> = ({ r }) => {
-  const { edges, geometry, latticePoints, counts } = useMemo(() => {
+  const { vertices, edges, geometry, latticePoints, counts } = useMemo(() => {
     const v = [
       new THREE.Vector3(0, 0, 0), // A
       new THREE.Vector3(1, 0, 0), // B
@@ -34,103 +35,169 @@ const ReeveFormulaViz: React.FC<ReeveFormulaVizProps> = ({ r }) => {
         [v[0], v[3]], [v[1], v[3]], [v[2], v[3]],
     ];
 
-    // Calculate lattice points within a bounding box
+    // Calculate Z1 and Z2 lattice points
     const points: PointData[] = [];
-    const range = 1.5; // How far around the base to show points
-    const minX = -range;
-    const maxX = range + 1;
-    const minY = -range;
-    const maxY = range + 1;
-    const minZ = -range;
-    const maxZ = Math.max(range, r + range);
+    const range = 1.5; // Bounding box range around the base tetrahedron (T_1)
+    const minCoord = -range;
+    // Adjust max bounds based on r - points near (1,1,r)
+    const maxCoord = Math.max(1 + range, r + range);
 
     // Z1 points (Integers)
-    for (let x = Math.floor(minX); x <= Math.ceil(maxX); x++) {
-      for (let y = Math.floor(minY); y <= Math.ceil(maxY); y++) {
-        for (let z = Math.floor(minZ); z <= Math.ceil(maxZ); z++) {
+    for (let x = Math.floor(minCoord); x <= Math.ceil(maxCoord); x++) {
+      for (let y = Math.floor(minCoord); y <= Math.ceil(maxCoord); y++) {
+        for (let z = Math.floor(minCoord); z <= Math.ceil(maxCoord); z++) {
           const p = new THREE.Vector3(x, y, z);
+          // Check relative to T_r (vertices v[0]..v[3])
           const location = checkPointLocation(p, v[0], v[1], v[2], v[3]);
-          points.push({ position: p, type: 'Z1', location });
+           // Add only points somewhat close to the tetrahedron for visualization
+           if (p.distanceTo(v[0]) < maxCoord + 1 || p.distanceTo(v[3]) < maxCoord + 1) {
+               points.push({ position: p, type: 'Z1', location });
+           }
         }
       }
     }
 
     // Z2 points (Halves, excluding Z1)
-    for (let x = Math.floor(minX * 2); x <= Math.ceil(maxX * 2); x++) {
-      for (let y = Math.floor(minY * 2); y <= Math.ceil(maxY * 2); y++) {
-        for (let z = Math.floor(minZ * 2); z <= Math.ceil(maxZ * 2); z++) {
+     // Iterate coordinates multiplied by 2
+    for (let x2 = Math.floor(minCoord * 2); x2 <= Math.ceil(maxCoord * 2); x2++) {
+      for (let y2 = Math.floor(minCoord * 2); y2 <= Math.ceil(maxCoord * 2); y2++) {
+        for (let z2 = Math.floor(minCoord * 2); z2 <= Math.ceil(maxCoord * 2); z2++) {
           // Include only points that are not already integers (Z1)
-          if (x % 2 !== 0 || y % 2 !== 0 || z % 2 !== 0) {
-            const p = new THREE.Vector3(x / 2, y / 2, z / 2);
+          if (x2 % 2 !== 0 || y2 % 2 !== 0 || z2 % 2 !== 0) {
+            const p = new THREE.Vector3(x2 / 2, y2 / 2, z2 / 2);
             const location = checkPointLocation(p, v[0], v[1], v[2], v[3]);
-            points.push({ position: p, type: 'Z2', location });
+            // Add only points somewhat close to the tetrahedron for visualization
+             if (p.distanceTo(v[0]) < maxCoord + 1 || p.distanceTo(v[3]) < maxCoord + 1) {
+                points.push({ position: p, type: 'Z2', location });
+             }
           }
         }
       }
     }
 
-    // Count points *inside or on boundary* for the formula
-    const cnts = {
-      I1: points.filter(p => p.type === 'Z1' && p.location === 'Interior').length,
-      B1: points.filter(p => p.type === 'Z1' && p.location === 'Boundary').length,
-      // For Z2 counts, include Z1 points that are inside/on boundary
-      I2_total: points.filter(p => p.location === 'Interior' && (p.type === 'Z1' || p.type === 'Z2')).length,
-      B2_total: points.filter(p => p.location === 'Boundary' && (p.type === 'Z1' || p.type === 'Z2')).length,
-    };
+    // Count points *inside or on boundary* for Reeve's formula
+    const I1 = points.filter(p => p.type === 'Z1' && p.location === 'Interior').length;
+    const B1 = points.filter(p => p.type === 'Z1' && p.location === 'Boundary').length;
+    // For Z2 counts, include Z1 points PLUS the Z2 (half-integer) points
+    const I2_total = points.filter(p => p.location === 'Interior' && (p.type === 'Z1' || p.type === 'Z2')).length;
+    const B2_total = points.filter(p => p.location === 'Boundary' && (p.type === 'Z1' || p.type === 'Z2')).length;
+
+    const cnts = { I1, B1, I2_total, B2_total };
 
     return { vertices: v, edges: edgs, geometry: geom, latticePoints: points, counts: cnts };
   }, [r]);
 
   const calculatedVolume = useMemo(() => {
     const { I1, B1, I2_total, B2_total } = counts;
-    // Simplified formula: 12V = 2*I2_total + B2_total - 2 * (2*I1 + B1)
-    return (2 * I2_total + B2_total - 2 * (2 * I1 + B1)) / 12;
+    // Simplified Reeve formula: 12V = 2*I2_total + B2_total - 2 * (2*I1 + B1)
+    // Ensure I1=0, B1=4 for Reeve Tetrahedra validation check
+     const calculated_12V = 2 * I2_total + B2_total - 2 * (2 * I1 + B1);
+    return calculated_12V / 12;
   }, [counts]);
 
   const actualVolume = r / 6;
+   // Calculate a suitable center point for the annotation
+   const centerPoint = useMemo(() => {
+        const avgX = (0 + 1 + 0 + 1) / 4;
+        const avgY = (0 + 0 + 1 + 1) / 4;
+        const avgZ = (0 + 0 + 0 + r) / 4;
+        return new THREE.Vector3(avgX - 0.5, avgY - 0.5, avgZ + Math.max(1.5, r * 0.4));
+    }, [r]);
+
 
   return (
-    <div className="h-[500px] w-full relative">
-        <Canvas camera={{ position: [2, 2, Math.max(3, r * 1.5)], fov: 50 }}>
-            <ambientLight intensity={0.6} />
-            <pointLight position={[5, 5, 5]} intensity={1} />
+    <div className="h-[550px] w-full relative"> {/* Increased height */}
+        {/* Use zoomed out camera */}
+        <Canvas camera={{ position: [3, 3, Math.max(5, r * 2)], fov: 50 }}>
+            <ambientLight intensity={0.7} />
+            <pointLight position={[5, 5, 5]} intensity={1.2} />
 
-            {/* Tetrahedron */}
+            {/* Tetrahedron faces */}
             <mesh geometry={geometry}>
-                <meshStandardMaterial color="skyblue" side={THREE.DoubleSide} transparent opacity={0.3} wireframe={false} />
+                 {/* Purple color */}
+                <meshStandardMaterial color="#ab87ff" side={THREE.DoubleSide} transparent opacity={0.5} wireframe={false} />
             </mesh>
-            {edges.map((edge, i) => <Line key={`edge-${i}`} points={edge} color="black" lineWidth={1} />)}
-            {/* No vertex spheres here */}
+            {/* Darker, thicker edges */}
+            {edges.map((edge, i) => <Line key={`edge-${i}`} points={edge} color="#444444" lineWidth={2.5} />)}
 
-            {/* Render ALL Z1 and Z2 lattice points */}
-            {latticePoints.map((p, i) => (
-                <Sphere key={`point-${i}`} args={[p.type === 'Z1' ? 0.04 : 0.03, 16, 16]} position={p.position}>
-                    <meshStandardMaterial
-                        color={p.type === 'Z1' ? 'blue' : 'green'}
-                        transparent={p.location === 'Outside'}
-                        opacity={p.location === 'Outside' ? 0.2 : 0.9}
-                    />
-                </Sphere>
-            ))}
+            {/* Render Z1 and Z2 lattice points */}
+            {latticePoints.map((p, i) => {
+                 let color = 'lightgray';
+                 let opacity = 0.15;
+                 let size = 0.03; // Smaller base size
+                 let isZ1Vertex = false;
 
-            <axesHelper args={[Math.max(1.5, r * 0.5)]} />
+                 if (p.type === 'Z1') {
+                     isZ1Vertex = vertices.some(vtx => vtx.equals(p.position));
+                     if (isZ1Vertex) {
+                         color = 'gold'; // Highlight Z1 vertices
+                         opacity = 1.0;
+                         size = 0.08;
+                     } else if (p.location === 'Boundary') {
+                         color = 'blue'; // Other Z1 boundary (if any)
+                         opacity = 0.9;
+                         size = 0.05;
+                     } else if (p.location === 'Interior') {
+                         color = 'blue'; // Z1 interior (I1=0 for T_r)
+                         opacity = 1.0;
+                         size = 0.05;
+                     } else {
+                         color = '#d3d3d3'; // Z1 Outside
+                     }
+                 } else { // Z2 points (half-integers)
+                    if (p.location === 'Boundary') {
+                         color = '#20b2aa'; // Light Sea Green for Z2 Boundary
+                         opacity = 0.7;
+                         size = 0.04;
+                    } else if (p.location === 'Interior') {
+                        color = '#20b2aa'; // Light Sea Green for Z2 Interior
+                        opacity = 0.9;
+                        size = 0.04;
+                    } else {
+                         color = '#f0f0f0'; // Z2 Outside (very faint)
+                         opacity = 0.1;
+                    }
+                 }
+
+                 // Don't render outside points if they are too faint anyway
+                 if (p.location === 'Outside' && opacity <= 0.15) return null;
+
+                return (
+                    <Sphere key={`point-${i}`} args={[size, 12, 12]} position={p.position}>
+                        <meshStandardMaterial color={color} transparent={opacity < 1.0} opacity={opacity} />
+                    </Sphere>
+                );
+            })}
+
+            <axesHelper args={[Math.max(1.5, r * 0.6)]} />
             <OrbitControls />
         </Canvas>
-         <div className="absolute top-2 left-2 bg-white/80 dark:bg-black/80 p-2 rounded text-xs">
-            <p><strong>Z1 (Blue):</strong> Points in view shown.</p>
-            <p><strong>Z2 (Green, non-Z1):</strong> Points in view shown.</p>
+        {/* Info Box */}
+         <div className="absolute top-2 left-2 bg-white/80 dark:bg-black/80 p-2 rounded text-xs shadow max-w-sm">
+             <p><strong>Points Legend:</strong></p>
+             <ul className="list-disc list-inside ml-2 mb-1">
+                <li><span style={{color: 'gold'}}>●</span> Z₁ Vertices (B₁)</li>
+                <li><span style={{color: 'blue'}}>●</span> Other Z₁ Inside/Boundary</li>
+                <li><span style={{color: '#20b2aa'}}>●</span> Z₂ Inside/Boundary</li>
+                <li><span style={{color: '#d3d3d3'}}>●</span> Outside (Z₁/Z₂)</li>
+             </ul>
+            <p><strong>Counts (Inside/Boundary):</strong></p>
+            <p className="ml-2">Z₁: <TeX math={`I_1=${counts.I1}, B_1=${counts.B1}`} /></p>
+            <p className="ml-2">Z₂ Total: <TeX math={`I_2=${counts.I2_total}, B_2=${counts.B2_total}`} /> (includes Z₁)</p>
             <hr className="my-1 border-gray-400"/>
-            <p><strong>Counts for Formula (Inside/Boundary):</strong></p>
-            <p className="ml-2">I₁={counts.I1}, B₁={counts.B1}</p>
-            <p className="ml-2">I₂<small>(total)</small>={counts.I2_total}, B₂<small>(total)</small>={counts.B2_total}</p>
+            <p><strong>Reeve's Formula Check:</strong></p>
+            <p className="text-[11px]"><TeX math={`12V = 2 I_2 + B_2 - 2(2 I_1 + B_1)`} /></p>
+            <p className="ml-2 text-[11px]"><TeX math={`= 2(${counts.I2_total}) + ${counts.B2_total} - 2(2(${counts.I1}) + ${counts.B1})`} /></p>
+            <p className="ml-2 text-[11px]"><TeX math={`= ${12 * calculatedVolume}`} /></p>
             <hr className="my-1 border-gray-400"/>
-            <p><strong>Reeve Calc:</strong> 12V = 2*I₂ + B₂ - 2*(2*I₁ + B₁)</p>
-            <p className="ml-2">= 2*{counts.I2_total} + {counts.B2_total} - 2*(2*{counts.I1} + {counts.B1}) = {12 * calculatedVolume}</p>
-            <p><strong>Actual Volume:</strong> V = r/6 = {actualVolume.toFixed(4)}</p>
-            <p><strong>Calculated Volume:</strong> V = {calculatedVolume.toFixed(4)}</p>
+            <p>Actual Volume: <TeX math={`V = r/6 = ${r}/6 = ${actualVolume.toFixed(4)}`} /></p>
+            <p>Calculated Volume: <TeX math={`V = ${calculatedVolume.toFixed(4)}`} /></p>
+             <p className={`font-semibold mt-1 ${Math.abs(actualVolume - calculatedVolume) < 1e-9 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                Formula Matches: {Math.abs(actualVolume - calculatedVolume) < 1e-9 ? 'Yes' : 'No'}
+            </p>
         </div>
     </div>
   );
 };
 
-export default ReeveFormulaViz; 
+export default ReeveFormulaViz;

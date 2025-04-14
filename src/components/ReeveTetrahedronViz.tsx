@@ -2,7 +2,7 @@
 
 import React, { useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Line, Sphere } from '@react-three/drei';
+import { OrbitControls, Line, Sphere, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { checkPointLocation } from '@/lib/geometryUtils'; // Import helper
 
@@ -12,7 +12,7 @@ interface ReeveTetrahedronVizProps {
 
 const ReeveTetrahedronViz: React.FC<ReeveTetrahedronVizProps> = ({ r }) => {
 
-  const { edges, geometry, latticePoints } = useMemo(() => {
+  const { vertices, edges, geometry, latticePoints } = useMemo(() => {
     const v = [
       new THREE.Vector3(0, 0, 0), // A (Origin)
       new THREE.Vector3(1, 0, 0), // B
@@ -53,30 +53,65 @@ const ReeveTetrahedronViz: React.FC<ReeveTetrahedronVizProps> = ({ r }) => {
 
   }, [r]);
 
+  // Calculate a suitable center point for the annotation
+  const centerPoint = useMemo(() => {
+      const avgX = (0 + 1 + 0 + 1) / 4;
+      const avgY = (0 + 0 + 1 + 1) / 4;
+      const avgZ = (0 + 0 + 0 + r) / 4;
+      return new THREE.Vector3(avgX, avgY, avgZ + Math.max(1, r * 0.3)); // Position above the center
+  }, [r]);
+
   return (
-    <Canvas camera={{ position: [2, 2, Math.max(3, r * 1.5)], fov: 50 }}>
-      <ambientLight intensity={0.6} />
-      <pointLight position={[5, 5, 5]} intensity={1} />
+    <Canvas camera={{ position: [3, 3, Math.max(5, r * 2)], fov: 50 }}>
+      <ambientLight intensity={0.7} />
+      <pointLight position={[5, 5, 5]} intensity={1.2} />
 
       {/* Render the faces */}
       <mesh geometry={geometry}>
-        <meshStandardMaterial color="skyblue" side={THREE.DoubleSide} transparent opacity={0.5} wireframe={false} />
+        <meshStandardMaterial color="#00ced1" side={THREE.DoubleSide} transparent opacity={0.6} wireframe={false} />
       </mesh>
 
       {/* Render the edges */}
       {edges.map((edge, i) => (
-         <Line key={`edge-${i}`} points={edge} color="black" lineWidth={2} />
+         <Line key={`edge-${i}`} points={edge} color="#333333" lineWidth={2.5} />
       ))}
 
-      {/* Render Z1 lattice points */}
-      {latticePoints.map((p, i) => (
-        <Sphere key={`lattice-${i}`} args={[0.04, 16, 16]} position={p.position}>
-           {/* Grey for outside, blue for inside/boundary */}
-           <meshStandardMaterial color={p.location === 'Outside' ? 'lightgray' : 'blue'} transparent={p.location === 'Outside'} opacity={p.location === 'Outside' ? 0.4 : 1.0} />
-        </Sphere>
+      {/* Render Vertices as distinct spheres */}
+      {vertices.map((vertex, i) => (
+          <Sphere key={`vertex-${i}`} args={[0.08, 16, 16]} position={vertex}>
+              <meshStandardMaterial color="gold" />
+          </Sphere>
       ))}
 
-      <axesHelper args={[Math.max(1.5, r * 0.5)]} />
+      {/* Render ALL calculated Z1 lattice points */}
+      {latticePoints.map((p, i) => {
+        // Skip rendering points that exactly match the main vertices (already rendered)
+        if (vertices.some(vtx => vtx.equals(p.position))) {
+          return null;
+        }
+        
+        let color = 'lightgray';
+        let opacity = 0.15;
+        let size = 0.04;
+
+        if (p.location === 'Boundary') {
+           color = 'gold'; // Boundary points (non-vertex, if any) also gold
+           opacity = 0.8;
+           size = 0.05; // Slightly larger than interior
+        } else if (p.location === 'Interior') {
+           color = '#4682b4'; // Blue for interior
+           opacity = 1.0;
+           size = 0.04;
+        }
+
+        return (
+          <Sphere key={`lattice-${i}`} args={[size, 16, 16]} position={p.position}>
+             <meshStandardMaterial color={color} transparent={p.location === 'Outside'} opacity={opacity} />
+          </Sphere>
+        );
+      })}
+
+      <axesHelper args={[Math.max(1.5, r * 0.6)]} />
       <OrbitControls />
     </Canvas>
   );
