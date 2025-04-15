@@ -35,8 +35,10 @@ export default function ReevesGeneralisationSection({ rValue, setRValue }: Reeve
                  <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
                     <li>Standard Lattice (<TeX math="Z_1" />): Points with integer coordinates. <TeX math={z1Def} />.</li>
                     <li>Half-Integer Lattice (<TeX math="Z_2" />): Points whose coordinates are multiples of 1/2. <TeX math={z2Def} />. This includes all <TeX math="Z_1" /> points.</li>
-                    <li><TeX math="I_n" />: Number of <TeX math="Z_n" /> points strictly *inside* <TeX math="P" />.</li>
-                    <li><TeX math="B_n" />: Number of <TeX math="Z_n" /> points exactly *on the boundary* of <TeX math="P" />.</li>
+                    <li><TeX math="I_1" />: Number of <TeX math="Z_1" /> points strictly *inside* <TeX math="P" />.</li>
+                    <li><TeX math="B_1" />: Number of <TeX math="Z_1" /> points exactly *on the boundary* of <TeX math="P" />.</li>
+                    <li><TeX math="I_2" />: Number of <TeX math="Z_2" /> points strictly *inside* <TeX math="P" /> (excluding <TeX math="Z_1" /> points already counted by <TeX math="I_1" />).</li>
+                    <li><TeX math="B_2" />: Number of <TeX math="Z_2" /> points exactly *on the boundary* of <TeX math="P" /> (excluding <TeX math="Z_1" /> points already counted by <TeX math="B_1" />).</li>
                 </ul>
             </div>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
