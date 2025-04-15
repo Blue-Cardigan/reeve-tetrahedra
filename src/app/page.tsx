@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import IntroductionSection from '@/components/sections/IntroductionSection';
 import PicksTheoremSection from '@/components/sections/PicksTheoremSection';
 import ReevesFormulaSection from '@/components/sections/ReevesFormulaSection';
-import ReevesGeneralizationSection from '@/components/sections/ReevesGeneralizationSection';
+import ReevesGeneralisationSection from '@/components/sections/ReevesGeneralisationSection';
 import EhrhartPolynomialSection from '@/components/sections/EhrhartPolynomialSection';
 import ReferencesSection from '@/components/sections/ReferencesSection';
 
@@ -21,14 +21,18 @@ export default function Home() {
         <IntroductionSection rValue={rValue} setRValue={setRValue} />
         <PicksTheoremSection />
         <ReevesFormulaSection />
-        <ReevesGeneralizationSection rValue={rValue} setRValue={setRValue} />
+        <ReevesGeneralisationSection rValue={rValue} setRValue={setRValue} />
         <EhrhartPolynomialSection rValue={rValue} />
         <ReferencesSection />
 
       </div>
 
       <footer className="mt-16 text-center text-xs text-gray-500 dark:text-gray-400">
-        Interested in obscure nerdy stuff of pertinent interest to the current generation of the Reeve family? Check out: <a href="https://microtonal-tutor.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">https://microtonal-tutor.vercel.app/</a>
+        Pertinent interests of the current generation of the Reeve family:
+        <br/>
+        Microtonal music: <a href="https://microtonal-tutor.vercel.app/" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">https://microtonal-tutor.vercel.app/</a>
+        <br/>
+        Theoretical neuroscience: <a href="https://learnactiveinference.co.uk" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">https://learnactiveinference.co.uk</a>
       </footer>
     </main>
   );

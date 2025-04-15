@@ -104,7 +104,7 @@ export function checkPointLocation(p: THREE.Vector3, vA: THREE.Vector3, vB: THRE
   // Or potentially exactly on an edge/vertex shared by faces it's outside of.
   // This case should technically be 'Outside' but boundary handling near edges/vertices with floating point is tricky.
   // Treating it as boundary if it passed the half-space checks is safer for counting.
-  // Re-evaluating if needed, but for visualization/counting this is usually sufficient.
+  // Re-evaluating if needed, but for visualisation/counting this is usually sufficient.
   // Let's refine: Check edges and vertices explicitly if onAnyFacePlane is true but not inside any face triangle.
 
     const edges = [

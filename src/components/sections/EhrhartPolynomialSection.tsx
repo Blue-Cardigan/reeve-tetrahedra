@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 
 const EhrhartPolynomialViz = dynamic(() => import('@/components/EhrhartPolynomialViz'), {
   ssr: false,
-  loading: () => <div className="flex justify-center items-center h-full"><p>Loading visualization...</p></div>
+  loading: () => <div className="flex justify-center items-center h-full"><p>Loading visualisation...</p></div>
 });
 
 interface EhrhartPolynomialSectionProps {
@@ -33,7 +33,7 @@ export default function EhrhartPolynomialSection({ rValue }: EhrhartPolynomialSe
     return (
         <section className="mb-16 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
             <h2 className="text-3xl font-semibold mb-6 text-gray-700 dark:text-gray-200 border-b pb-2 border-gray-300 dark:border-gray-600">
-                5. Ehrhart Polynomials: A Generalization
+                5. Ehrhart Polynomials: A Generalisation
             </h2>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
                 Reeve's formula provides a way to calculate volume using specific lattice counts. Ehrhart theory offers a more general framework that connects volume, lattice points, and topology through polynomials. Crucially, this framework applies this approach to shapes (lattice polytopes) in any number of dimensions.
@@ -78,17 +78,17 @@ export default function EhrhartPolynomialSection({ rValue }: EhrhartPolynomialSe
                  Thus, the Ehrhart polynomial can be seen as a more general structure from which specific volume formulas involving lattice point counts can be derived.
             </p>
 
-             <h3 className="text-2xl font-semibold mb-4 mt-8 text-gray-700 dark:text-gray-200">Visualization: Scaled Tetrahedra and Point Counting</h3>
+             <h3 className="text-2xl font-semibold mb-4 mt-8 text-gray-700 dark:text-gray-200">Visualisation: Scaled Tetrahedra and Point Counting</h3>
              <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-                The visualization below helps understand Ehrhart polynomials. It shows the Reeve tetrahedron <TeX math="T_r" /> scaled by different integer factors <TeX math="t" />. You can adjust <TeX math="t" /> and see how the number of lattice points inside the scaled tetrahedron <TeX math="t T_r" /> changes, following the polynomial <TeX math="L(T_r, t)" />.
+                The visualisation below helps understand Ehrhart polynomials. It shows the Reeve tetrahedron <TeX math="T_r" /> scaled by different integer factors <TeX math="t" />. You can adjust <TeX math="t" /> and see how the number of lattice points inside the scaled tetrahedron <TeX math="t T_r" /> changes, following the polynomial <TeX math="L(T_r, t)" />.
              </p>
             <div className="w-full min-h-96 bg-gray-100 dark:bg-gray-700 rounded-md shadow-inner mb-4 p-4 border border-gray-300 dark:border-gray-600 flex flex-col items-center">
                  {/* EhrhartPolynomialViz should ideally allow changing 't' */}
                 <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
-                    Visualizing <TeX math={`t T_{${rValue}}`} /> and counting lattice points <TeX math="L(T_{{rValue}}, t)" />. (Visualization might show t=1, 2, 3...)
+                    Visualizing <TeX math={`t T_{${rValue}}`} /> and counting lattice points <TeX math="L(T_{{rValue}}, t)" />. (Visualisation might show t=1, 2, 3...)
                 </p>
                 <div className="w-full h-96 relative">
-                    <Suspense fallback={<div className="flex justify-center items-center h-full">Loading Visualization...</div>}>
+                    <Suspense fallback={<div className="flex justify-center items-center h-full">Loading Visualisation...</div>}>
                         <EhrhartPolynomialViz r={rValue} />
                     </Suspense>
                 </div>

@@ -35,9 +35,9 @@ export default function IntroductionSection({ rValue, setRValue }: IntroductionS
                 The parameter <TeX math="r" /> controls the "height" or "sharpness" of the tetrahedron. As you change <TeX math="r" />, the shape changes, and importantly, its volume changes too. The volume <TeX math="V" /> of a Reeve tetrahedron <TeX math="T_r" /> is given by a simple formula: <TeX math="V = r/6" />.
             </p>
 
-            <h3 className="text-2xl font-semibold mb-4 text-gray-700 dark:text-gray-200">Interactive Visualization</h3>
+            <h3 className="text-2xl font-semibold mb-4 text-gray-700 dark:text-gray-200">Interactive Visualisation</h3>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-                Use the slider below to change the value of <TeX math="r" />. Observe how the tetrahedron stretches vertically. The visualization below shows the shape and calculates its volume based on your chosen <TeX math="r" />.
+                Use the slider below to change the value of <TeX math="r" />. Observe how the tetrahedron stretches vertically. The visualisation below shows the shape and calculates its volume based on your chosen <TeX math="r" />.
             </p>
             <div className="flex flex-col items-center mb-6 p-4 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
                 <label htmlFor="rSlider" className="mb-2 text-gray-700 dark:text-gray-200">

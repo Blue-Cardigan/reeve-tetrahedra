@@ -4,10 +4,10 @@ import TeX from '@matejmazur/react-katex';
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-// Uncomment and import the new 2D visualization
+// Uncomment and import the new 2D visualisation
 const PicksTheorem2DViz = dynamic(() => import('@/components/PicksTheoremViz'), {
   ssr: false,
-  loading: () => <div className="flex justify-center items-center h-64 bg-gray-100 dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600"><p className="text-gray-500 dark:text-gray-400">Loading interactive visualization...</p></div>
+  loading: () => <div className="flex justify-center items-center h-64 bg-gray-100 dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600"><p className="text-gray-500 dark:text-gray-400">Loading interactive visualisation...</p></div>
 });
 
 export default function PicksTheoremSection() {
@@ -33,16 +33,16 @@ export default function PicksTheoremSection() {
                 </ul>
             </div>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-                This theorem is elegant because it connects the geometric concept of area with the arithmetic concept of counting points. However, Pick's theorem famously *does not* generalize directly to three dimensions. Reeve tetrahedra are a key example demonstrating this failure.
+                This theorem is elegant because it connects the geometric concept of area with the arithmetic concept of counting points. However, Pick's theorem famously *does not* generalise directly to three dimensions. Reeve tetrahedra are a key example demonstrating this failure.
             </p>
 
-            {/* Placeholder for the interactive 2D visualization */}
+            {/* Placeholder for the interactive 2D visualisation */}
             <h3 className="text-2xl font-semibold mb-4 mt-8 text-gray-700 dark:text-gray-200">Interactive 2D Example</h3>
              {/* Removed placeholder div */}
              {/* Render the actual component */}
              <Suspense fallback={
                  <div className="flex justify-center items-center h-64 bg-gray-100 dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600">
-                     <p className="text-gray-500 dark:text-gray-400">Loading interactive visualization...</p>
+                     <p className="text-gray-500 dark:text-gray-400">Loading interactive visualisation...</p>
                  </div>
                 }>
                  <PicksTheorem2DViz />

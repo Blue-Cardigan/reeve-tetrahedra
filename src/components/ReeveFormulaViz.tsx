@@ -49,7 +49,7 @@ const ReeveFormulaViz: React.FC<ReeveFormulaVizProps> = ({ r }) => {
           const p = new THREE.Vector3(x, y, z);
           // Check relative to T_r (vertices v[0]..v[3])
           const location = checkPointLocation(p, v[0], v[1], v[2], v[3]);
-           // Add only points somewhat close to the tetrahedron for visualization
+           // Add only points somewhat close to the tetrahedron for visualisation
            if (p.distanceTo(v[0]) < maxCoord + 1 || p.distanceTo(v[3]) < maxCoord + 1) {
                points.push({ position: p, type: 'Z1', location });
            }
@@ -66,7 +66,7 @@ const ReeveFormulaViz: React.FC<ReeveFormulaVizProps> = ({ r }) => {
           if (x2 % 2 !== 0 || y2 % 2 !== 0 || z2 % 2 !== 0) {
             const p = new THREE.Vector3(x2 / 2, y2 / 2, z2 / 2);
             const location = checkPointLocation(p, v[0], v[1], v[2], v[3]);
-            // Add only points somewhat close to the tetrahedron for visualization
+            // Add only points somewhat close to the tetrahedron for visualisation
              if (p.distanceTo(v[0]) < maxCoord + 1 || p.distanceTo(v[3]) < maxCoord + 1) {
                 points.push({ position: p, type: 'Z2', location });
              }

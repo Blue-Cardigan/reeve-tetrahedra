@@ -4,18 +4,18 @@ import TeX from '@matejmazur/react-katex';
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
-// Import the restored/recreated visualization component
+// Import the restored/recreated visualisation component
 const ReeveFormulaViz = dynamic(() => import('@/components/ReeveFormulaViz'), { // Ensure path is correct
   ssr: false,
-  loading: () => <div className="flex justify-center items-center h-[550px] bg-gray-100 dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600"><p className="text-gray-500 dark:text-gray-400">Loading visualization...</p></div>
+  loading: () => <div className="flex justify-center items-center h-[550px] bg-gray-100 dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600"><p className="text-gray-500 dark:text-gray-400">Loading visualisation...</p></div>
 });
 
-interface ReevesGeneralizationSectionProps {
+interface ReevesGeneralisationSectionProps {
     rValue: number;
     setRValue: (value: number) => void;
 }
 
-export default function ReevesGeneralizationSection({ rValue, setRValue }: ReevesGeneralizationSectionProps) {
+export default function ReevesGeneralisationSection({ rValue, setRValue }: ReevesGeneralisationSectionProps) {
 
     const reeveFormula = String.raw`12V(P) = 2I_2 + B_2 - 2(2I_1 + B_1)`;
     const z1Def = String.raw`Z_1 = \mathbb{Z}^3 = \{(x, y, z) \mid x, y, z \in \mathbb{Z}\}`;
@@ -57,19 +57,19 @@ export default function ReevesGeneralizationSection({ rValue, setRValue }: Reeve
                     value={rValue}
                     onChange={(e) => setRValue(parseInt(e.target.value, 10))}
                     className="w-full max-w-md cursor-pointer"
-                    aria-label={`Set r value for Reeve's Formula visualization, current value ${rValue}`}
+                    aria-label={`Set r value for Reeve's Formula visualisation, current value ${rValue}`}
                 />
             </div>
              <p className="mb-6 text-gray-600 dark:text-gray-300 leading-relaxed">
-                The visualization below shows the Reeve tetrahedron <TeX math={`T_{${rValue}}`} />, highlighting the points from <TeX math="Z_1" /> and <TeX math="Z_2" /> (those not in <TeX math="Z_1" />) within and on its boundary. It calculates the values for <TeX math="I_1, B_1, I_2, B_2" /> and verifies Reeve's formula against the known volume <TeX math="V=r/6" />.
+                The visualisation below shows the Reeve tetrahedron <TeX math={`T_{${rValue}}`} />, highlighting the points from <TeX math="Z_1" /> and <TeX math="Z_2" /> (those not in <TeX math="Z_1" />) within and on its boundary. It calculates the values for <TeX math="I_1, B_1, I_2, B_2" /> and verifies Reeve's formula against the known volume <TeX math="V=r/6" />.
             </p>
 
              <Suspense fallback={
                  <div className="flex justify-center items-center h-[550px] bg-gray-100 dark:bg-gray-700 rounded-md border border-gray-300 dark:border-gray-600">
-                     <p className="text-gray-500 dark:text-gray-400">Loading interactive visualization...</p>
+                     <p className="text-gray-500 dark:text-gray-400">Loading interactive visualisation...</p>
                  </div>
                 }>
-                  {/* Use the detailed visualization component */}
+                  {/* Use the detailed visualisation component */}
                  <ReeveFormulaViz r={rValue} />
             </Suspense>
              <p className="text-sm text-gray-500 dark:text-gray-400 text-center italic mt-2">
