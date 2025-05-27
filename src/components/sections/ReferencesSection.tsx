@@ -8,7 +8,7 @@ export default function ReferencesSection() {
             </h2>
             <ul className="list-disc list-inside space-y-3 text-gray-600 dark:text-gray-300 text-sm md:text-base">
                 <li>
-                     Reeve, J. E. (1957). "On the volume of lattice polyhedra". Proceedings of the London Mathematical Society. Third Series. 7: 378–395. doi:<a href="https://doi.org/10.1112/plms/s3-7.1.378" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">10.1112/plms/s3-7.1.378</a>. MR 0095452.
+                     Reeve, J. E. (1957). "On the volume of lattice polyhedra". Proceedings of the London Mathematical Society. Third Series. 7: 378–395. doi:<a href="https://doi.org/10.1112/plms/s3-7.1.378" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">10.1112/plms/s3-7.1.378</a>. <a href="/on-the-volume-of-lattice-polyhedra.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline ml-2">[PDF download]</a> MR 0095452.
                 </li>
                 <li>
                     Kiradjiev, Kristian (December 2018). <a href="https://ima.org.uk/wp-content/uploads/2019/02/Connecting-the-Dots-with-Picks-Theorem-Kristian-Kiradjiev.pdf" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">"Connecting the Dots with Pick's Theorem"</a> (PDF). Mathematics Today. Institute of mathematics and its applications.
